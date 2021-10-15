@@ -1,0 +1,7 @@
+.room {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10%;
+    background-color: white;
+    color: rgb(44, 43, 43);
+}
