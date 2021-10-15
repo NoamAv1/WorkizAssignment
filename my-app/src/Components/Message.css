@@ -1,13 +1,17 @@
-.message { 
+.message-in{ 
     display: flex;
     flex-direction: column;
     border-radius: 20%;
-}
-
-.outgoing {
     background-color: yellow;
+    border: 1px solid black;
+
+
 }
 
-.incoming {
+.message-out { 
+    display: flex;
+    flex-direction: column;
+    border-radius: 20%;
     background-color: grey;
+    border: 1px solid black;
 }

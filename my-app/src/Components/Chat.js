@@ -1,6 +1,8 @@
 import React from "react";
 import Room from "./Room";
 import Message from "./Message";
+import './Chat.css';
+
 
 const Chat = () => {
   // const rooms = React.useMemo(() => getRooms(), [rooms !== getRooms()]);
@@ -14,18 +16,16 @@ const Chat = () => {
       .then((res) => res.json())
       .then((res) => {
         setRooms(res.chat_rooms);
-        console.log(res.chat_rooms[0] ,'res.chat_rooms[0]');
         setSelectedRoomId(res.chat_rooms[0]);
       });
   };
 
   const getRoom = (roomdId) => {
-    console.log(roomdId, 'inget room ')
-    if(roomdId !== -1 ){
-        console.log('getRoom', roomdId);
-        fetch(`http://localhost:3001/api/get_chat/${roomdId}`)
+    if (roomdId !== -1) {
+      fetch(`http://localhost:3001/api/get_chat/${roomdId}`)
+        .then((res) => res.json())
         .then((res) => {
-            setSelectedRoom(res);
+          setSelectedRoom(res);
         });
     }
   };
@@ -34,25 +34,20 @@ const Chat = () => {
     getRooms();
   }, []);
 
-
   React.useEffect(() => {
-    console.log(selectedRoomId, "selectedRoomId");
     const room = getRoom(selectedRoomId);
-    console.log(room, 'room' );
     setSelectedRoom(room);
-    // console.log(getRoom(selectedRoomId, 'getRoom(selectedRoomId'));
   }, [selectedRoomId]);
-
 
   return (
     <div className={"chat-container"}>
       <div>
-        {rooms?.forEach((room) => (
-          <Room {...room} onRoomClick={setSelectedRoomId} />
+        {rooms.map((room) => (
+          <Room id={room} onRoomClick={setSelectedRoomId} getRoom={getRoom} />
         ))}
       </div>
       <div>
-        {seletctedRoom?.body?.forEach((rm) => (
+        {seletctedRoom?.body?.map((rm) => (
           <Message {...rm} fromName={seletctedRoom.fromName} />
         ))}
       </div>
